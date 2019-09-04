@@ -5,6 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(ggfortify)
 library(ranger)
+
 #Load and Prep data
 herring<-read.csv("Herring_from_history.csv")
 View(herring)
@@ -14,6 +15,7 @@ herring<-herring[,-c(15:16)]
 herring<-herring %>% 
   mutate(event_time=End-Start) %>% 
   select(-Correlated_Flow,-Temperature)
+
 #KM Model Fits
 km<- with(herring, Surv(event_time, Pass))
 km_fit <- survfit(Surv(event_time, Pass) ~ 1, data=herring)
